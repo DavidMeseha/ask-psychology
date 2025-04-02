@@ -28,17 +28,17 @@ export function AuthButtons() {
             {session.user?.name || "Account"}
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem className="font-medium">
-            {session.user?.email}
-          </DropdownMenuItem>
+        <DropdownMenuContent align="start">
           <DropdownMenuSeparator />
           {session.user?.role === "admin" && (
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem className="cursor-pointer" asChild>
               <a href="/admin">Admin Dashboard</a>
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem onClick={() => signOut()}>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => signOut()}
+          >
             Sign Out
           </DropdownMenuItem>
         </DropdownMenuContent>

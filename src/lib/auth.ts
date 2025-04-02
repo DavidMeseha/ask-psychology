@@ -36,6 +36,7 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: user._id.toString(),
+          email: user.email,
           name: user.name,
           role: user.role,
           emailVerified: user.emailVerified,
@@ -54,6 +55,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token) {
+        session.user.email = token.email as string;
         session.user.id = token.id as string;
         session.user.role = token.role as string;
         session.user.emailVerified = token.emailVerified as boolean;
@@ -69,4 +71,4 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-}; 
+};

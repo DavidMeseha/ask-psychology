@@ -24,8 +24,6 @@ export async function POST(request: Request) {
 
     await connectToDatabase();
 
-    console.log(session.user);
-
     // Create question in database
     await QuestionModel.create({
       userId: session.user.id,

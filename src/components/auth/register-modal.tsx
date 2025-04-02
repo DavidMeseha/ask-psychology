@@ -42,6 +42,7 @@ export function RegisterModal({
   switchTab,
 }: RegisterModalProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<false | string>(false);
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -71,7 +72,7 @@ export function RegisterModal({
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || "Failed to register");
+        setError(error.message || "Failed to register");
       }
 
       toast({
@@ -81,11 +82,7 @@ export function RegisterModal({
 
       switchTab?.();
     } catch {
-      toast({
-        title: "Registration failed",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
+      setError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -162,6 +159,10 @@ export function RegisterModal({
               </p>
             )}
           </div>
+
+          {error ? (
+            <div className="text-xs text-red-500 text-center">{error}</div>
+          ) : null}
 
           <Button
             type="submit"

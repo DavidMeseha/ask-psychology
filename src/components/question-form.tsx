@@ -14,6 +14,7 @@ export function QuestionForm() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<false | string>(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -58,6 +59,7 @@ export function QuestionForm() {
         description: "Your question has been sent to our team.",
       });
 
+      setSuccess(true);
       router.refresh();
     } catch {
       toast({
@@ -97,6 +99,12 @@ export function QuestionForm() {
 
         {error ? (
           <div className="text-xs text-red-500 text-center">{error}</div>
+        ) : null}
+
+        {success ? (
+          <div className="text-xs text-green-500 text-center">
+            Your question sent successfully
+          </div>
         ) : null}
       </div>
       <LoginModal

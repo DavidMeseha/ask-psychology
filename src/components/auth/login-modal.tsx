@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/use-toast";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -32,6 +31,7 @@ interface LoginModalProps {
 
 export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<false | string>(false);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -43,6 +43,7 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
 
   async function onSubmit(data: LoginFormValues) {
     setIsLoading(true);
+    setError(false);
 
     try {
       const result = await signIn("credentials", {
@@ -51,27 +52,12 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
         redirect: false,
       });
 
-      if (result?.error) {
-        toast({
-          title: "Login failed",
-          description: "Invalid email or password",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      toast({
-        title: "Success",
-        description: "You have been logged in",
-      });
+      if (result?.error)
+        return setError("Login failed: Invalid email or password");
 
       onClose();
     } catch {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
+      return setError("Something went wrong. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -118,6 +104,10 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
               </p>
             )}
           </div>
+
+          {error ? (
+            <div className="text-xs text-red-500 text-center">{error}</div>
+          ) : null}
 
           <Button
             type="submit"
