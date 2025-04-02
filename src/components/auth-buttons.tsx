@@ -63,10 +63,18 @@ export function AuthButtons() {
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
+        switchTab={() => {
+          setIsLoginModalOpen(false);
+          setIsRegisterModalOpen(true);
+        }}
       />
       <RegisterModal
         isOpen={isRegisterModalOpen}
         onClose={() => setIsRegisterModalOpen(false)}
+        switchTab={() => {
+          setIsLoginModalOpen(true);
+          setIsRegisterModalOpen(false);
+        }}
       />
     </>
   );

@@ -27,9 +27,10 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
+  switchTab?: () => void;
 }
 
-export function LoginModal({ isOpen, onClose }: LoginModalProps) {
+export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<LoginFormValues>({
@@ -130,7 +131,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
             <Button
               onClick={() => {
                 onClose();
-                // Here you would open the register modal
+                switchTab?.();
               }}
             >
               {"Don't have an account? Sign up"}

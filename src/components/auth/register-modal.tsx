@@ -33,9 +33,14 @@ type RegisterFormValues = z.infer<typeof registerSchema>;
 interface RegisterModalProps {
   isOpen: boolean;
   onClose: () => void;
+  switchTab?: () => void;
 }
 
-export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
+export function RegisterModal({
+  isOpen,
+  onClose,
+  switchTab,
+}: RegisterModalProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<RegisterFormValues>({
@@ -74,7 +79,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
         description: "Please check your email to verify your account",
       });
 
-      onClose();
+      switchTab?.();
     } catch {
       toast({
         title: "Registration failed",
@@ -171,7 +176,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               variant="link"
               onClick={() => {
                 onClose();
-                // Here you would open the login modal
+                switchTab?.();
               }}
             >
               Already have an account? Log in
