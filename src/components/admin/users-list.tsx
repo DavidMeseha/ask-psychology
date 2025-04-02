@@ -32,7 +32,7 @@ export function UsersList({ users }: UsersListProps) {
 
   async function handleVerifyEmail(userId: string) {
     try {
-      const response = await fetch(`/api/admin/users/${userId}/verify`, {
+      const response = await fetch(`/api/admin/users/${userId}`, {
         method: "POST",
       });
 

@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
 
 // Create a transporter
 const transporter = nodemailer.createTransport({
@@ -9,19 +9,19 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_SERVER_USER,
     pass: process.env.EMAIL_SERVER_PASSWORD,
   },
-})
+});
 
 interface QuestionEmailParams {
-  from: string
-  to: string
-  subject: string
-  userName: string
-  userEmail: string
-  message: string
+  from: string;
+  to: string;
+  subject: string;
+  userName: string;
+  userEmail: string;
+  message: string;
 }
 
 export async function sendVerificationEmail(email: string, token: string) {
-  const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify?token=${token}`
+  const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify?token=${token}`;
 
   await transporter.sendMail({
     from: process.env.ADMIN_EMAIL,
@@ -37,10 +37,17 @@ export async function sendVerificationEmail(email: string, token: string) {
         <p>If you did not create an account, you can safely ignore this email.</p>
       </div>
     `,
-  })
+  });
 }
 
-export async function sendQuestionEmail({ from, to, subject, userName, userEmail, message }: QuestionEmailParams) {
+export async function sendQuestionEmail({
+  from,
+  to,
+  subject,
+  userName,
+  userEmail,
+  message,
+}: QuestionEmailParams) {
   await transporter.sendMail({
     from,
     to,
@@ -56,6 +63,5 @@ export async function sendQuestionEmail({ from, to, subject, userName, userEmail
         <p>You can reply directly to this email to respond to the user.</p>
       </div>
     `,
-  })
+  });
 }
-
