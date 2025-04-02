@@ -1,23 +1,23 @@
-import { redirect } from "next/navigation"
-import { getServerSession } from "next-auth/next"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { UsersList } from "@/components/admin/users-list"
-import { QuestionsList } from "@/components/admin/questions-list"
-import { connectToDatabase } from "@/lib/mongodb"
-import { UserModel } from "@/models/user"
-import { QuestionModel } from "@/models/question"
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth/next";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { UsersList } from "@/components/admin/users-list";
+import { QuestionsList } from "@/components/admin/questions-list";
+import { connectToDatabase } from "@/lib/mongodb";
+import { UserModel } from "@/models/user";
+import { QuestionModel } from "@/models/question";
 
 export default async function AdminPage() {
-  const session = await getServerSession()
+  const session = await getServerSession();
 
   if (!session || session.user?.role !== "admin") {
-    redirect("/")
+    redirect("/");
   }
 
-  await connectToDatabase()
+  await connectToDatabase();
 
-  const users = await UserModel.find().sort({ createdAt: -1 }).lean()
-  const questions = await QuestionModel.find().sort({ createdAt: -1 }).lean()
+  const users = await UserModel.find().sort({ createdAt: -1 }).lean();
+  const questions = await QuestionModel.find().sort({ createdAt: -1 }).lean();
 
   return (
     <div className="container py-10">
@@ -25,8 +25,12 @@ export default async function AdminPage() {
 
       <Tabs defaultValue="questions" className="w-full">
         <TabsList className="mb-6">
-          <TabsTrigger value="questions">Questions</TabsTrigger>
-          <TabsTrigger value="users">Users</TabsTrigger>
+          <TabsTrigger className="bg-white text-black mx-1" value="questions">
+            Questions
+          </TabsTrigger>
+          <TabsTrigger className="bg-white text-black mx-1" value="users">
+            Users
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="questions">
@@ -38,6 +42,5 @@ export default async function AdminPage() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
-

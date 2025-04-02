@@ -1,33 +1,48 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { formatDistanceToNow } from "date-fns"
+import { useState } from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { formatDistanceToNow } from "date-fns";
 
 interface Question {
-  _id: string
-  userId: string
-  userName: string
-  userEmail: string
-  subject: string
-  message: string
-  status: "pending" | "answered"
-  createdAt: string
+  _id: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  subject: string;
+  message: string;
+  status: "pending" | "answered";
+  createdAt: string;
 }
 
 interface QuestionsListProps {
-  questions: Question[]
+  questions: Question[];
 }
 
 export function QuestionsList({ questions }: QuestionsListProps) {
-  const [questionsList] = useState(questions)
-  const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(null)
+  const [questionsList] = useState(questions);
+  const [selectedQuestion, setSelectedQuestion] = useState<Question | null>(
+    null
+  );
 
   function formatDate(dateString: string) {
-    return formatDistanceToNow(new Date(dateString), { addSuffix: true })
+    return formatDistanceToNow(new Date(dateString), { addSuffix: true });
   }
 
   return (
@@ -58,11 +73,21 @@ export function QuestionsList({ questions }: QuestionsListProps) {
                     {question.userName} ({question.userEmail})
                   </TableCell>
                   <TableCell>
-                    <Badge variant={question.status === "answered" ? "outline" : "default"}>{question.status}</Badge>
+                    <Badge
+                      variant={
+                        question.status === "answered" ? "outline" : "default"
+                      }
+                    >
+                      {question.status}
+                    </Badge>
                   </TableCell>
                   <TableCell>{formatDate(question.createdAt)}</TableCell>
                   <TableCell>
-                    <Button variant="outline" size="sm" onClick={() => setSelectedQuestion(question)}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setSelectedQuestion(question)}
+                    >
                       View
                     </Button>
                   </TableCell>
@@ -73,8 +98,11 @@ export function QuestionsList({ questions }: QuestionsListProps) {
         </Table>
       </div>
 
-      <Dialog open={!!selectedQuestion} onOpenChange={() => setSelectedQuestion(null)}>
-        <DialogContent className="sm:max-w-[600px]">
+      <Dialog
+        open={!!selectedQuestion}
+        onOpenChange={() => setSelectedQuestion(null)}
+      >
+        <DialogContent className="sm:max-w-[600px] bg-black">
           <DialogHeader>
             <DialogTitle>{selectedQuestion?.subject}</DialogTitle>
             <DialogDescription>
@@ -95,6 +123,5 @@ export function QuestionsList({ questions }: QuestionsListProps) {
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }
-

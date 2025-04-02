@@ -88,7 +88,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="sm:max-w-[425px] bg-black">
         <DialogHeader>
           <DialogTitle>Create an account</DialogTitle>
           <DialogDescription>
@@ -158,7 +158,11 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
             )}
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button
+            type="submit"
+            className="w-full text-black bg-white"
+            disabled={isLoading}
+          >
             {isLoading ? "Creating account..." : "Sign Up"}
           </Button>
 

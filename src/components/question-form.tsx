@@ -1,43 +1,44 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { LoginModal } from "@/components/auth/login-modal";
-
-const questionSchema = z.object({
-  subject: z.string().min(5, "Subject must be at least 5 characters"),
-  message: z.string().min(20, "Message must be at least 20 characters"),
-});
-
-type QuestionFormValues = z.infer<typeof questionSchema>;
 
 export function QuestionForm() {
   const { data: session } = useSession();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const router = useRouter();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isSending, setIsSending] = useState(false);
+  const [error, setError] = useState<false | string>(false);
 
-  const form = useForm<QuestionFormValues>({
-    resolver: zodResolver(questionSchema),
-    defaultValues: {
-      subject: "",
-      message: "",
-    },
-  });
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
 
-  async function onSubmit(data: QuestionFormValues) {
-    if (!session) {
-      setIsLoginModalOpen(true);
-      return;
-    }
+    const adjustHeight = () => {
+      textarea.style.height = "auto";
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    };
+
+    textarea.addEventListener("input", adjustHeight);
+    return () => textarea.removeEventListener("input", adjustHeight);
+  }, []);
+
+  async function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!textareaRef.current) return;
+    if (!session) return setIsLoginModalOpen(true);
+
+    console.log(textareaRef.current?.value);
+
+    if (textareaRef.current.value.length < 15)
+      return setError("Write your question in details");
+
+    setIsSending(true);
 
     try {
       const response = await fetch("/api/questions", {
@@ -45,7 +46,7 @@ export function QuestionForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ message: textareaRef.current?.value }),
       });
 
       if (!response.ok) {
@@ -57,7 +58,6 @@ export function QuestionForm() {
         description: "Your question has been sent to our team.",
       });
 
-      form.reset();
       router.refresh();
     } catch {
       toast({
@@ -65,46 +65,40 @@ export function QuestionForm() {
         description: "Failed to submit your question. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setIsSending(false);
     }
   }
 
   return (
     <>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="subject">Subject</Label>
-          <Input
-            id="subject"
-            placeholder="Brief subject of your question"
-            {...form.register("subject")}
-          />
-          {form.formState.errors.subject && (
-            <p className="text-sm text-destructive">
-              {form.formState.errors.subject.message}
-            </p>
-          )}
-        </div>
+      <div className="space-y-2">
+        <form onSubmit={onSubmit} className="border flex items-end rounded-xl">
+          <div className="w-full p-4">
+            <textarea
+              ref={textareaRef}
+              id="message"
+              className="block w-full resize-none overflow-hidden focus:border-none focus:outline-0"
+              rows={1}
+              placeholder="Describe your question in detail..."
+            />
+            {<p className="text-sm text-destructive"></p>}
+          </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="message">Your Question</Label>
-          <Textarea
-            id="message"
-            placeholder="Describe your question in detail..."
-            className="min-h-[150px]"
-            {...form.register("message")}
-          />
-          {form.formState.errors.message && (
-            <p className="text-sm text-destructive">
-              {form.formState.errors.message.message}
-            </p>
-          )}
-        </div>
+          <Button
+            disabled={isSending}
+            type="submit"
+            className="bg-white text-black px-4 me-2 mb-2"
+            onClick={() => {}}
+          >
+            {isSending ? "Sending" : "Send"}
+          </Button>
+        </form>
 
-        <Button type="submit" className="w-full">
-          Submit Question
-        </Button>
-      </form>
-
+        {error ? (
+          <div className="text-xs text-red-500 text-center">{error}</div>
+        ) : null}
+      </div>
       <LoginModal
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}

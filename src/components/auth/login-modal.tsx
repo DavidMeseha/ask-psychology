@@ -78,7 +78,7 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="sm:max-w-[425px] bg-black">
         <DialogHeader>
           <DialogTitle>Log In</DialogTitle>
           <DialogDescription>
@@ -118,7 +118,11 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
             )}
           </div>
 
-          <Button type="submit" className="w-full" disabled={isLoading}>
+          <Button
+            type="submit"
+            className="w-full bg-white text-black"
+            disabled={isLoading}
+          >
             {isLoading ? "Logging in..." : "Log In"}
           </Button>
 

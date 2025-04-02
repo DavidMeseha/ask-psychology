@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="flex justify-center">
         <MainLayout>{children}</MainLayout>
       </body>
     </html>
