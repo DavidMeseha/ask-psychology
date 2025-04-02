@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="flex justify-center">
+      <body className="flex justify-center min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
         <MainLayout>{children}</MainLayout>
       </body>
     </html>
