@@ -26,10 +26,12 @@ export function AuthButtons() {
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="flex items-center gap-2">
             <User className="h-4 w-4" />
-            {session.user?.name || "Account"}
+            <span className="sm:inline-block hidden">
+              {session.user?.name || "Account"}
+            </span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
+        <DropdownMenuContent align="end">
           <DropdownMenuSeparator />
           {session.user?.role === "admin" && (
             <DropdownMenuItem className="cursor-pointer" asChild>
