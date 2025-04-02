@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { User } from "lucide-react";
+import Link from "next/link";
 
 export function AuthButtons() {
   const { data: session } = useSession();
@@ -32,7 +33,7 @@ export function AuthButtons() {
           <DropdownMenuSeparator />
           {session.user?.role === "admin" && (
             <DropdownMenuItem className="cursor-pointer" asChild>
-              <a href="/admin">Admin Dashboard</a>
+              <Link href="/admin">Admin Dashboard</Link>
             </DropdownMenuItem>
           )}
           <DropdownMenuItem

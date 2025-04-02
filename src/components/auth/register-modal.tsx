@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/use-toast";
 
 const registerSchema = z
   .object({
@@ -74,11 +73,6 @@ export function RegisterModal({
         const error = await response.json();
         setError(error.message || "Failed to register");
       }
-
-      toast({
-        title: "Account created",
-        description: "Please check your email to verify your account",
-      });
 
       switchTab?.();
     } catch {

@@ -6,9 +6,10 @@ import { QuestionsList } from "@/components/admin/questions-list";
 import { connectToDatabase } from "@/lib/mongodb";
 import { UserModel } from "@/models/user";
 import { QuestionModel } from "@/models/question";
+import { authOptions } from "@/lib/auth";
 
 export default async function AdminPage() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   if (!session || session.user?.role !== "admin") {
     redirect("/");
