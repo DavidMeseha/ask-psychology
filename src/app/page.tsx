@@ -6,7 +6,7 @@ import { HeroSection } from "@/components/hero-section";
 export default function Home() {
   return (
     <div className="w-full max-w-7xl mx-4 flex flex-col items-center">
-      <header className="flex items-center justify-between py-4">
+      <header className="w-full flex items-center justify-between py-4">
         <Link href="/" className="text-2xl font-bold">
           سايكولوجي
         </Link>
