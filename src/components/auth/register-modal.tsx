@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import SocialLogin from "./social-login";
 
 const registerSchema = z
   .object({
@@ -90,96 +91,115 @@ export function RegisterModal({
           <DialogDescription>أدخل بياناتك لإنشاء حساب جديد</DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
-          <div>
-            <Label htmlFor="name">الاسم</Label>
-            <Input
-              id="name"
-              className="mt-2"
-              placeholder="أحمد محمد"
-              disabled={isLoading}
-              {...form.register("name")}
-            />
-            {form.formState.errors.name && (
-              <p className="text-sm text-destructive">
-                {form.formState.errors.name.message}
-              </p>
-            )}
+        <div className="grid gap-4">
+          <SocialLogin
+            isLoading={isLoading}
+            onTrigger={() => setIsLoading(true)}
+          />
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-black px-2 text-muted-foreground">أو</span>
+            </div>
           </div>
 
-          <div>
-            <Label htmlFor="email">البريد الإلكتروني</Label>
-            <Input
-              id="email"
-              className="mt-2"
-              type="email"
-              placeholder="you@example.com"
-              disabled={isLoading}
-              {...form.register("email")}
-            />
-            {form.formState.errors.email && (
-              <p className="text-sm text-destructive">
-                {form.formState.errors.email.message}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <Label htmlFor="password">كلمة المرور</Label>
-            <Input
-              id="password"
-              className="mt-2"
-              type="password"
-              disabled={isLoading}
-              {...form.register("password")}
-            />
-            {form.formState.errors.password && (
-              <p className="text-sm text-destructive">
-                {form.formState.errors.password.message}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <Label htmlFor="confirmPassword">تأكيد كلمة المرور</Label>
-            <Input
-              id="confirmPassword"
-              className="mt-2"
-              type="password"
-              disabled={isLoading}
-              {...form.register("confirmPassword")}
-            />
-            {form.formState.errors.confirmPassword && (
-              <p className="text-sm text-destructive">
-                {form.formState.errors.confirmPassword.message}
-              </p>
-            )}
-          </div>
-
-          {error ? (
-            <div className="text-xs text-red-500 text-center">{error}</div>
-          ) : null}
-
-          <Button
-            type="submit"
-            className="w-full text-black bg-white"
-            disabled={isLoading}
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 pt-4"
           >
-            {isLoading ? "جاري إنشاء الحساب..." : "إنشاء حساب"}
-          </Button>
+            <div>
+              <Label htmlFor="name">الاسم</Label>
+              <Input
+                id="name"
+                className="mt-2"
+                placeholder="أحمد محمد"
+                disabled={isLoading}
+                {...form.register("name")}
+              />
+              {form.formState.errors.name && (
+                <p className="text-sm text-destructive">
+                  {form.formState.errors.name.message}
+                </p>
+              )}
+            </div>
 
-          <div className="text-center text-sm">
+            <div>
+              <Label htmlFor="email">البريد الإلكتروني</Label>
+              <Input
+                id="email"
+                className="mt-2"
+                type="email"
+                placeholder="you@example.com"
+                disabled={isLoading}
+                {...form.register("email")}
+              />
+              {form.formState.errors.email && (
+                <p className="text-sm text-destructive">
+                  {form.formState.errors.email.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="password">كلمة المرور</Label>
+              <Input
+                id="password"
+                className="mt-2"
+                type="password"
+                disabled={isLoading}
+                {...form.register("password")}
+              />
+              {form.formState.errors.password && (
+                <p className="text-sm text-destructive">
+                  {form.formState.errors.password.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <Label htmlFor="confirmPassword">تأكيد كلمة المرور</Label>
+              <Input
+                id="confirmPassword"
+                className="mt-2"
+                type="password"
+                disabled={isLoading}
+                {...form.register("confirmPassword")}
+              />
+              {form.formState.errors.confirmPassword && (
+                <p className="text-sm text-destructive">
+                  {form.formState.errors.confirmPassword.message}
+                </p>
+              )}
+            </div>
+
+            {error ? (
+              <div className="text-xs text-red-500 text-center">{error}</div>
+            ) : null}
+
             <Button
-              variant="link"
-              onClick={() => {
-                onClose();
-                switchTab?.();
-              }}
+              type="submit"
+              className="w-full text-black bg-white"
+              disabled={isLoading}
             >
-              لديك حساب بالفعل؟ سجل دخول
+              {isLoading ? "جاري إنشاء الحساب..." : "إنشاء حساب"}
             </Button>
-          </div>
-        </form>
+
+            <div className="text-center text-sm">
+              <Button
+                variant="link"
+                onClick={() => {
+                  onClose();
+                  switchTab?.();
+                }}
+              >
+                لديك حساب بالفعل؟ سجل دخول
+              </Button>
+            </div>
+          </form>
+        </div>
       </DialogContent>
     </Dialog>
   );
