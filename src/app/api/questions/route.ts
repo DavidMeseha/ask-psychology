@@ -31,7 +31,6 @@ export async function POST(request: Request) {
       userName: session.user.name,
       subject: `Question`,
       message,
-      status: "pending",
       createdAt: new Date(),
     });
 

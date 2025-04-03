@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document, Types } from "mongoose"
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface IQuestion extends Document {
   userId: Types.ObjectId;
@@ -6,7 +6,6 @@ export interface IQuestion extends Document {
   userEmail: string;
   subject: string;
   message: string;
-  status: "pending" | "answered";
   createdAt: Date;
   verificationToken?: string;
 }
@@ -33,16 +32,12 @@ const QuestionSchema = new Schema<IQuestion>({
     type: String,
     required: true,
   },
-  status: {
-    type: String,
-    enum: ["pending", "answered"],
-    default: "pending",
-  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-})
+});
 
-export const QuestionModel = mongoose.models.Question || mongoose.model<IQuestion>("Question", QuestionSchema)
-
+export const QuestionModel =
+  mongoose.models.Question ||
+  mongoose.model<IQuestion>("Question", QuestionSchema);
