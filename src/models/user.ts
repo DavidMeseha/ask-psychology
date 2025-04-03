@@ -1,9 +1,9 @@
-import mongoose, { Schema, Document } from "mongoose"
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {
   name: string;
   email: string;
-  password: string;
+  password?: string | null;
   role: "user" | "admin";
   emailVerified: boolean;
   verificationToken?: string;
@@ -22,7 +22,7 @@ const UserSchema = new Schema<IUser>({
   },
   password: {
     type: String,
-    required: true,
+    default: null,
   },
   role: {
     type: String,
@@ -40,7 +40,7 @@ const UserSchema = new Schema<IUser>({
     type: Date,
     default: Date.now,
   },
-})
+});
 
-export const UserModel = mongoose.models.User || mongoose.model<IUser>("User", UserSchema)
-
+export const UserModel =
+  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
