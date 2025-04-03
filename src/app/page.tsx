@@ -16,7 +16,7 @@ export default function Home() {
       <main className="container flex flex-col items-center justify-center py-12">
         <HeroSection />
 
-        <section className="w-full max-w-2xl mx-auto mt-12 p-6 bg-card rounded-lg shadow-lg">
+        <section className="w-full max-w-2xl mx-auto mt-12 py-6 px-2 bg-card rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold mb-6 text-center">
             اطرح سؤالاً
           </h2>
