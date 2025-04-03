@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
 import { LoginModal } from "@/components/auth/login-modal";
 
 export function QuestionForm() {
@@ -37,7 +36,7 @@ export function QuestionForm() {
     console.log(textareaRef.current?.value);
 
     if (textareaRef.current.value.length < 15)
-      return setError("Write your question in details");
+      return setError("اكتب سؤالك بالتفصيل");
 
     setIsSending(true);
 
@@ -54,19 +53,10 @@ export function QuestionForm() {
         throw new Error("Failed to submit question");
       }
 
-      toast({
-        title: "Question submitted",
-        description: "Your question has been sent to our team.",
-      });
-
       setSuccess(true);
       router.refresh();
     } catch {
-      toast({
-        title: "Error",
-        description: "Failed to submit your question. Please try again.",
-        variant: "destructive",
-      });
+      setError("فشل في إرسال سؤالك. يرجى المحاولة مرة أخرى.");
     } finally {
       setIsSending(false);
     }
@@ -82,7 +72,7 @@ export function QuestionForm() {
               id="message"
               className="block w-full resize-none overflow-hidden focus:border-none focus:outline-0"
               rows={1}
-              placeholder="Describe your question in detail..."
+              placeholder="صف سؤالك بالتفصيل..."
             />
             {<p className="text-sm text-destructive"></p>}
           </div>
@@ -93,7 +83,7 @@ export function QuestionForm() {
             className="bg-white text-black px-4 me-2 mb-2"
             onClick={() => {}}
           >
-            {isSending ? "Sending" : "Send"}
+            {isSending ? "جاري الإرسال" : "إرسال"}
           </Button>
         </form>
 
@@ -103,7 +93,7 @@ export function QuestionForm() {
 
         {success ? (
           <div className="text-xs text-green-500 text-center">
-            Your question sent successfully
+            تم إرسال سؤالك بنجاح
           </div>
         ) : null}
       </div>

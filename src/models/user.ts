@@ -1,6 +1,16 @@
-import mongoose, { Schema } from "mongoose"
+import mongoose, { Schema, Document } from "mongoose"
 
-const UserSchema = new Schema({
+export interface IUser extends Document {
+  name: string;
+  email: string;
+  password: string;
+  role: "user" | "admin";
+  emailVerified: boolean;
+  verificationToken?: string;
+  createdAt: Date;
+}
+
+const UserSchema = new Schema<IUser>({
   name: {
     type: String,
     required: true,
@@ -32,5 +42,5 @@ const UserSchema = new Schema({
   },
 })
 
-export const UserModel = mongoose.models.User || mongoose.model("User", UserSchema)
+export const UserModel = mongoose.models.User || mongoose.model<IUser>("User", UserSchema)
 

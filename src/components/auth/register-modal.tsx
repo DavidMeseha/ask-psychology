@@ -17,13 +17,13 @@ import { Label } from "@/components/ui/label";
 
 const registerSchema = z
   .object({
-    name: z.string().min(2, "Name must be at least 2 characters"),
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
+    name: z.string().min(2, "الاسم يجب أن يكون على الأقل حرفين"),
+    email: z.string().email("الرجاء إدخال بريد إلكتروني صحيح"),
+    password: z.string().min(6, "كلمة المرور يجب أن تكون 6 أحرف على الأقل"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
+    message: "كلمات المرور غير متطابقة",
     path: ["confirmPassword"],
   });
 
@@ -71,12 +71,12 @@ export function RegisterModal({
 
       if (!response.ok) {
         const error = await response.json();
-        setError(error.message || "Failed to register");
+        setError(error.message || "فشل في إنشاء الحساب");
       }
 
       switchTab?.();
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError("حدث خطأ. يرجى المحاولة مرة أخرى.");
     } finally {
       setIsLoading(false);
     }
@@ -86,18 +86,17 @@ export function RegisterModal({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px] bg-black">
         <DialogHeader>
-          <DialogTitle>Create an account</DialogTitle>
-          <DialogDescription>
-            Enter your details to create a new account
-          </DialogDescription>
+          <DialogTitle>إنشاء حساب جديد</DialogTitle>
+          <DialogDescription>أدخل بياناتك لإنشاء حساب جديد</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+          <div>
+            <Label htmlFor="name">الاسم</Label>
             <Input
               id="name"
-              placeholder="John Doe"
+              className="mt-2"
+              placeholder="أحمد محمد"
               disabled={isLoading}
               {...form.register("name")}
             />
@@ -108,10 +107,11 @@ export function RegisterModal({
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+          <div>
+            <Label htmlFor="email">البريد الإلكتروني</Label>
             <Input
               id="email"
+              className="mt-2"
               type="email"
               placeholder="you@example.com"
               disabled={isLoading}
@@ -124,10 +124,11 @@ export function RegisterModal({
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+          <div>
+            <Label htmlFor="password">كلمة المرور</Label>
             <Input
               id="password"
+              className="mt-2"
               type="password"
               disabled={isLoading}
               {...form.register("password")}
@@ -139,10 +140,11 @@ export function RegisterModal({
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <div>
+            <Label htmlFor="confirmPassword">تأكيد كلمة المرور</Label>
             <Input
               id="confirmPassword"
+              className="mt-2"
               type="password"
               disabled={isLoading}
               {...form.register("confirmPassword")}
@@ -163,7 +165,7 @@ export function RegisterModal({
             className="w-full text-black bg-white"
             disabled={isLoading}
           >
-            {isLoading ? "Creating account..." : "Sign Up"}
+            {isLoading ? "جاري إنشاء الحساب..." : "إنشاء حساب"}
           </Button>
 
           <div className="text-center text-sm">
@@ -174,7 +176,7 @@ export function RegisterModal({
                 switchTab?.();
               }}
             >
-              Already have an account? Log in
+              لديك حساب بالفعل؟ سجل دخول
             </Button>
           </div>
         </form>

@@ -17,8 +17,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  email: z.string().email("الرجاء إدخال بريد إلكتروني صحيح"),
+  password: z.string().min(6, "كلمة المرور يجب أن تكون 6 أحرف على الأقل"),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -53,11 +53,13 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
       });
 
       if (result?.error)
-        return setError("Login failed: Invalid email or password");
+        return setError(
+          "فشل تسجيل الدخول: البريد الإلكتروني أو كلمة المرور غير صحيحة"
+        );
 
       onClose();
     } catch {
-      return setError("Something went wrong. Please try again.");
+      return setError("حدث خطأ. يرجى المحاولة مرة أخرى.");
     } finally {
       setIsLoading(false);
     }
@@ -67,17 +69,16 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px] bg-black">
         <DialogHeader>
-          <DialogTitle>Log In</DialogTitle>
-          <DialogDescription>
-            Enter your credentials to access your account
-          </DialogDescription>
+          <DialogTitle>تسجيل الدخول</DialogTitle>
+          <DialogDescription>أدخل بياناتك للوصول إلى حسابك</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 pt-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+          <div>
+            <Label htmlFor="email">البريد الإلكتروني</Label>
             <Input
               id="email"
+              className="mt-2"
               type="email"
               placeholder="you@example.com"
               disabled={isLoading}
@@ -90,10 +91,11 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
             )}
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+          <div>
+            <Label htmlFor="password">كلمة المرور</Label>
             <Input
               id="password"
+              className="mt-2"
               type="password"
               disabled={isLoading}
               {...form.register("password")}
@@ -114,17 +116,18 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
             className="w-full bg-white text-black"
             disabled={isLoading}
           >
-            {isLoading ? "Logging in..." : "Log In"}
+            {isLoading ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}
           </Button>
 
           <div className="text-center text-sm">
             <Button
+              className="underline"
               onClick={() => {
                 onClose();
                 switchTab?.();
               }}
             >
-              {"Don't have an account? Sign up"}
+              {"ليس لديك حساب؟ سجل الآن"}
             </Button>
           </div>
         </form>

@@ -27,7 +27,7 @@ export function AuthButtons() {
           <Button variant="outline" className="flex items-center gap-2">
             <User className="h-4 w-4" />
             <span className="sm:inline-block hidden">
-              {session.user?.name || "Account"}
+              {session.user?.name || "حسابي"}
             </span>
           </Button>
         </DropdownMenuTrigger>
@@ -35,14 +35,14 @@ export function AuthButtons() {
           <DropdownMenuSeparator />
           {session.user?.role === "admin" && (
             <DropdownMenuItem className="cursor-pointer" asChild>
-              <Link href="/admin">Admin Dashboard</Link>
+              <Link href="/admin">لوحة التحكم</Link>
             </DropdownMenuItem>
           )}
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={() => signOut()}
           >
-            Sign Out
+            تسجيل الخروج
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -53,13 +53,13 @@ export function AuthButtons() {
     <>
       <div className="flex gap-2">
         <Button variant="outline" onClick={() => setIsLoginModalOpen(true)}>
-          Log In
+          تسجيل الدخول
         </Button>
         <Button
           className="bg-white text-black"
           onClick={() => setIsRegisterModalOpen(true)}
         >
-          Sign Up
+          إنشاء حساب
         </Button>
       </div>
 

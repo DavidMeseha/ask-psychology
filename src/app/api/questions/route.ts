@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       userId: session.user.id,
       userEmail: session.user.email,
       userName: session.user.name,
-      subject: `Question from ${session.user.name}`,
+      subject: `Question`,
       message,
       status: "pending",
       createdAt: new Date(),
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     // await sendQuestionEmail({
     //   from: process.env.ADMIN_EMAIL!,
     //   to: process.env.PERSONAL_EMAIL!,
-    //   subject: `Question from ${session.user.name}`,
+    //   subject: `Question`,
     //   userName: session.user.name as string,
     //   userEmail: session.user.email as string,
     //   message,

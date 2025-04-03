@@ -1,6 +1,17 @@
-import mongoose, { Schema } from "mongoose"
+import mongoose, { Schema, Document, Types } from "mongoose"
 
-const QuestionSchema = new Schema({
+export interface IQuestion extends Document {
+  userId: Types.ObjectId;
+  userName: string;
+  userEmail: string;
+  subject: string;
+  message: string;
+  status: "pending" | "answered";
+  createdAt: Date;
+  verificationToken?: string;
+}
+
+const QuestionSchema = new Schema<IQuestion>({
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
@@ -33,5 +44,5 @@ const QuestionSchema = new Schema({
   },
 })
 
-export const QuestionModel = mongoose.models.Question || mongoose.model("Question", QuestionSchema)
+export const QuestionModel = mongoose.models.Question || mongoose.model<IQuestion>("Question", QuestionSchema)
 

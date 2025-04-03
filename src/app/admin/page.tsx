@@ -21,16 +21,18 @@ export default async function AdminPage() {
   const questions = await QuestionModel.find().sort({ createdAt: -1 }).lean();
 
   return (
-    <div className="container py-10">
-      <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
+    <div className="container py-10 px-4">
+      <h1 className="text-3xl font-bold mb-8 text-center sm:text-start">
+        لوحة التحكم
+      </h1>
 
       <Tabs defaultValue="questions" className="w-full">
-        <TabsList className="mb-6">
+        <TabsList className="mb-6 w-full">
           <TabsTrigger className="bg-white text-black mx-1" value="questions">
-            Questions
+            الأسئلة
           </TabsTrigger>
           <TabsTrigger className="bg-white text-black mx-1" value="users">
-            Users
+            المستخدمين
           </TabsTrigger>
         </TabsList>
 

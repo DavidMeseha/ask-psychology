@@ -9,7 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,6 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { formatDistanceToNow } from "date-fns";
+import { ar } from "date-fns/locale";
 
 interface Question {
   _id: string;
@@ -42,7 +42,10 @@ export function QuestionsList({ questions }: QuestionsListProps) {
   );
 
   function formatDate(dateString: string) {
-    return formatDistanceToNow(new Date(dateString), { addSuffix: true });
+    return formatDistanceToNow(new Date(dateString), {
+      addSuffix: true,
+      locale: ar,
+    });
   }
 
   return (
@@ -51,18 +54,17 @@ export function QuestionsList({ questions }: QuestionsListProps) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Subject</TableHead>
-              <TableHead>From</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead>الموضوع</TableHead>
+              <TableHead>من</TableHead>
+              <TableHead>التاريخ</TableHead>
+              <TableHead>الإجراءات</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {questionsList.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center py-6">
-                  No questions found
+                  لا توجد أسئلة
                 </TableCell>
               </TableRow>
             ) : (
@@ -72,15 +74,6 @@ export function QuestionsList({ questions }: QuestionsListProps) {
                   <TableCell>
                     {question.userName} ({question.userEmail})
                   </TableCell>
-                  <TableCell>
-                    <Badge
-                      variant={
-                        question.status === "answered" ? "outline" : "default"
-                      }
-                    >
-                      {question.status}
-                    </Badge>
-                  </TableCell>
                   <TableCell>{formatDate(question.createdAt)}</TableCell>
                   <TableCell>
                     <Button
@@ -88,7 +81,7 @@ export function QuestionsList({ questions }: QuestionsListProps) {
                       size="sm"
                       onClick={() => setSelectedQuestion(question)}
                     >
-                      View
+                      عرض
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -103,23 +96,14 @@ export function QuestionsList({ questions }: QuestionsListProps) {
         onOpenChange={() => setSelectedQuestion(null)}
       >
         <DialogContent className="sm:max-w-[600px] bg-black">
-          <DialogHeader>
+          <DialogHeader className="border-b pb-8 border-b-white/30">
             <DialogTitle>{selectedQuestion?.subject}</DialogTitle>
             <DialogDescription>
-              From {selectedQuestion?.userName} ({selectedQuestion?.userEmail})
+              من {selectedQuestion?.userName} ({selectedQuestion?.userEmail})
             </DialogDescription>
           </DialogHeader>
 
-          <div className="mt-4 p-4 bg-muted rounded-md">
-            <p className="whitespace-pre-wrap">{selectedQuestion?.message}</p>
-          </div>
-
-          <div className="flex justify-end gap-2 mt-4">
-            <Button variant="outline" onClick={() => setSelectedQuestion(null)}>
-              Close
-            </Button>
-            <Button>Reply</Button>
-          </div>
+          <p className="whitespace-pre-wrap p-4">{selectedQuestion?.message}</p>
         </DialogContent>
       </Dialog>
     </>
