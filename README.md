@@ -1,6 +1,6 @@
 # Ask Pop
 
-A Next.js web application with user authentication, admin functionality, and charting capabilities.
+A Next.js web application with user authentication, admin functionality.
 
 ## Tech Stack
 
