@@ -20,9 +20,11 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <body
-        className={`${notoKufiArabic.className} min-h-screen max-w-7xl bg-gradient-to-br from-black via-gray-900 to-black mx-auto`}
+        className={`${notoKufiArabic.className} bg-gradient-to-br from-black via-gray-900 to-black`}
       >
-        <MainLayout>{children}</MainLayout>
+        <div className="min-h-screen max-w-7xl mx-auto">
+          <MainLayout>{children}</MainLayout>
+        </div>
       </body>
     </html>
   );
