@@ -64,11 +64,11 @@ export function QuestionForm() {
     <>
       <div className="space-y-2 mb-8">
         <form onSubmit={onSubmit} className="border flex items-end rounded-xl">
-          <div className="w-full p-4">
+          <div className="w-full h-full">
             <textarea
               ref={textareaRef}
               id="message"
-              className="block w-full resize-none overflow-hidden focus:border-none focus:outline-0"
+              className="block w-full px-2 py-4 resize-none overflow-hidden focus:border-none focus:outline-0"
               rows={1}
               placeholder="صف سؤالك بالتفصيل..."
             />
@@ -78,8 +78,7 @@ export function QuestionForm() {
           <Button
             disabled={isSending}
             type="submit"
-            className="bg-primary text-white px-4 me-2 mb-2"
-            onClick={() => {}}
+            className="bg-primary text-white px-4 m-2"
           >
             {isSending ? "جاري الإرسال" : "إرسال"}
           </Button>

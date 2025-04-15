@@ -22,7 +22,7 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="container flex flex-col items-center justify-center py-10">
+      <main className="container flex flex-col items-center justify-center py-8">
         <HeroSection />
 
         <section className="w-full max-w-2xl mx-auto mt-12 py-4 px-2 bg-card rounded-lg">
