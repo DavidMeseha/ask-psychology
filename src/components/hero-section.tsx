@@ -1,12 +1,19 @@
+import { InstructionsButton } from "./InstructionsButton";
+
 export function HeroSection() {
   return (
     <section className="text-center py-12">
-      <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl bg-gradient-to-r from-blue-600 via-cyan-400 to-green-600 text-transparent bg-clip-text">
-        رحلتك نحو الصحة النفسية
+      <h1 className="hero text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl bg-gradient-to-r from-[#003092] via-[#00879e] to-[#ffab5b] text-transparent bg-clip-text">
+        مساحة آمنة للمشاركة
       </h1>
-      <p className="mt-6 text-lg text-muted-foreground max-w-2xl mx-auto">
-        تواصل مع أخصائيين نفسيين مرخصين ومتخصصين في الصحة النفسية. احصل على إرشادات شخصية ودعم علاجي ونصائح خبراء في بيئة آمنة وسرية. رحلتك نحو الصحة النفسية تبدأ من هنا.
+      <p className="mt-6 text-lg text-primary/80 max-w-2xl mx-auto">
+        ساحتك الآمنة للإرشاد والدعم النفسي هنا يمكنك أن تطرح سؤالك، تشارك
+        مشكلتك، مخاوفك، معوقاتك الروحية أو أي شيء يزعجك بخصوصية تامة وبدون الكشف
+        عن هويتك.
       </p>
+      <div className="mt-8 flex justify-center">
+        <InstructionsButton />
+      </div>
     </section>
   );
 }

@@ -80,7 +80,7 @@ export function QuestionForm() {
           <Button
             disabled={isSending}
             type="submit"
-            className="bg-white text-black px-4 me-2 mb-2"
+            className="bg-primary text-white px-4 me-2 mb-2"
             onClick={() => {}}
           >
             {isSending ? "جاري الإرسال" : "إرسال"}

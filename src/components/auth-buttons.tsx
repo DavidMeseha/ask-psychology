@@ -56,7 +56,7 @@ export function AuthButtons() {
           تسجيل الدخول
         </Button>
         <Button
-          className="bg-white text-black hidden sm:inline-block"
+          className="bg-primary text-white hidden sm:inline-block"
           onClick={() => setIsRegisterModalOpen(true)}
         >
           إنشاء حساب

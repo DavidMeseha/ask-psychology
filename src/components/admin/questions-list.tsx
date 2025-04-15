@@ -95,11 +95,11 @@ export function QuestionsList({ questions }: QuestionsListProps) {
         open={!!selectedQuestion}
         onOpenChange={() => setSelectedQuestion(null)}
       >
-        <DialogContent className="sm:max-w-[600px] bg-black">
-          <DialogHeader className="border-b pb-8 border-b-white/30">
+        <DialogContent className="sm:max-w-[600px] bg-white">
+          <DialogHeader className="border-b pb-8 border-b-black/30">
             <DialogTitle>{selectedQuestion?.subject}</DialogTitle>
             <DialogDescription>
-              من {selectedQuestion?.userName} ({selectedQuestion?.userEmail})
+              {selectedQuestion?.userName} ({selectedQuestion?.userEmail})
             </DialogDescription>
           </DialogHeader>
 

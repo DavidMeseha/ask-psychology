@@ -68,7 +68,7 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-black">
+      <DialogContent className="sm:max-w-[425px] bg-white">
         <DialogHeader>
           <DialogTitle>تسجيل الدخول</DialogTitle>
           <DialogDescription>أدخل بياناتك للوصول إلى حسابك</DialogDescription>
@@ -85,7 +85,7 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-black px-2 text-muted-foreground">أو</span>
+              <span className="bg-white px-2 text-muted-foreground">أو</span>
             </div>
           </div>
 
@@ -129,7 +129,7 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
 
             <Button
               type="submit"
-              className="w-full bg-white text-black"
+              className="w-full text-white"
               disabled={isLoading}
             >
               {isLoading ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}
@@ -137,7 +137,8 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
 
             <div className="text-center text-sm">
               <Button
-                className="underline"
+                className="bg-transparent"
+                variant="link"
                 onClick={() => {
                   onClose();
                   switchTab?.();

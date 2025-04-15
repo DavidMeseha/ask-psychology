@@ -7,6 +7,8 @@ import { connectToDatabase } from "@/lib/mongodb";
 import { UserModel } from "@/models/user";
 import { QuestionModel } from "@/models/question";
 import { authOptions } from "@/lib/auth";
+import Link from "next/link";
+import Image from "next/image";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -21,17 +23,22 @@ export default async function AdminPage() {
   const questions = await QuestionModel.find().sort({ createdAt: -1 }).lean();
 
   return (
-    <div className="container py-10 px-4">
-      <h1 className="text-3xl font-bold mb-8 text-center sm:text-start">
-        لوحة التحكم
-      </h1>
+    <div className="container py-4 px-2">
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold text-center sm:text-start">
+          لوحة التحكم
+        </h1>
+        <Link href="/" className="text-2xl font-bold">
+          <Image src={"/sero_logo_s.png"} width={100} height={100} alt="sero" />
+        </Link>
+      </div>
 
       <Tabs defaultValue="questions" className="w-full">
         <TabsList className="mb-6 w-full">
-          <TabsTrigger className="bg-white text-black mx-1" value="questions">
+          <TabsTrigger className="bg-primary text-white mx-1" value="questions">
             الأسئلة
           </TabsTrigger>
-          <TabsTrigger className="bg-white text-black mx-1" value="users">
+          <TabsTrigger className="bg-primary text-white mx-1" value="users">
             المستخدمين
           </TabsTrigger>
         </TabsList>

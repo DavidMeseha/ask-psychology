@@ -31,7 +31,7 @@ export default function SocialLogin({
         variant="outline"
         onClick={() => handleSocialLogin("google")}
         disabled={isLoading}
-        className="bg-white text-black hover:bg-gray-100"
+        className="bg-white hover:bg-gray-100"
       >
         <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
           <path
@@ -57,7 +57,7 @@ export default function SocialLogin({
         variant="outline"
         onClick={() => handleSocialLogin("facebook")}
         disabled={isLoading}
-        className="bg-white text-black hover:bg-gray-100"
+        className="bg-white hover:bg-gray-100"
       >
         <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
           <path

@@ -2,30 +2,37 @@ import Link from "next/link";
 import { QuestionForm } from "@/components/question-form";
 import { AuthButtons } from "@/components/auth-buttons";
 import { HeroSection } from "@/components/hero-section";
+import Image from "next/image";
+import { Facebook } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="w-full max-w-7xl px-4">
-      <header className="flex items-center justify-between py-4">
+      <header className="flex justify-between py-4">
         <Link href="/" className="text-2xl font-bold">
-          سايكولوجي
+          <Image src={"/sero_logo_s.png"} width={100} height={100} alt="sero" />
         </Link>
         <AuthButtons />
       </header>
 
-      <main className="container flex flex-col items-center justify-center py-12">
+      <main className="container flex flex-col items-center justify-center py-8">
         <HeroSection />
 
-        <section className="w-full max-w-2xl mx-auto mt-12 py-6 px-2 bg-card rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold mb-6 text-center">اطرح سؤالاً</h2>
+        <section className="w-full max-w-2xl mx-auto mt-12 py-4 px-2 bg-card rounded-lg">
+          <h2 className="text-2xl font-bold mb-4 ms-4">اطرح سؤالاً</h2>
           <QuestionForm />
         </section>
       </main>
 
-      <footer className="container py-6 mt-auto">
-        <div className="text-center text-muted-foreground">
-          <p>© {new Date().getFullYear()} مند سابورت. جميع الحقوق محفوظة.</p>
-        </div>
+      <footer className="fixed bottom-2.5 start-5">
+        <Link
+          className="inline-block bg-primary rounded-full p-1"
+          href="https://www.facebook.com/profile.php?id=61573532942122"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Facebook className="h-5 w-5 fill-white text-transparent" />
+        </Link>
       </footer>
     </div>
   );
