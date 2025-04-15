@@ -12,14 +12,11 @@ import Image from "next/image";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
-
-  if (!session || session.user?.role !== "admin") {
-    redirect("/");
-  }
+  if (!session || session.user?.role !== "admin") redirect("/");
 
   await connectToDatabase();
 
-  const users = await UserModel.find().sort({ createdAt: -1 }).lean();
+  const users = await UserModel.find().limit(20).sort({ createdAt: -1 }).lean();
   const questions = await QuestionModel.find().sort({ createdAt: -1 }).lean();
 
   return (

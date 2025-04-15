@@ -5,6 +5,10 @@ import { QuestionModel } from "@/models/question";
 // import { sendQuestionEmail } from "@/lib/email";
 import { authOptions } from "@/lib/auth";
 
+// Rate limit settings
+const RATE_LIMIT_WINDOW = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+const MAX_QUESTIONS_PER_DAY = 3;
+
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
@@ -23,6 +27,33 @@ export async function POST(request: Request) {
     }
 
     await connectToDatabase();
+    // Check rate limit
+    const timeWindow = new Date(Date.now() - RATE_LIMIT_WINDOW);
+    const recentQuestions = await QuestionModel.countDocuments({
+      userId: session.user.id,
+      createdAt: { $gt: timeWindow },
+    });
+
+    if (recentQuestions >= MAX_QUESTIONS_PER_DAY) {
+      return NextResponse.json(
+        {
+          message:
+            "لقد تجاوزت الحد المسموح به من الأسئلة اليومية. يرجى المحاولة غداً",
+          remainingTime:
+            RATE_LIMIT_WINDOW -
+            (Date.now() -
+              (
+                await QuestionModel.findOne({
+                  userId: session.user.id,
+                  createdAt: { $gt: timeWindow },
+                })
+                  .sort({ createdAt: 1 })
+                  .select("createdAt")
+              ).createdAt.getTime()),
+        },
+        { status: 429 }
+      );
+    }
 
     // Create question in database
     await QuestionModel.create({

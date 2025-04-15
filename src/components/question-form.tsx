@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { LoginModal } from "@/components/auth/login-modal";
@@ -9,7 +8,6 @@ import { LoginModal } from "@/components/auth/login-modal";
 export function QuestionForm() {
   const { data: session } = useSession();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const router = useRouter();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isSending, setIsSending] = useState(false);
   const [error, setError] = useState<false | string>(false);
@@ -36,6 +34,8 @@ export function QuestionForm() {
     if (textareaRef.current.value.length < 15)
       return setError("اكتب سؤالك بالتفصيل");
 
+    setError(false);
+    setSuccess(false);
     setIsSending(true);
 
     try {
@@ -47,12 +47,23 @@ export function QuestionForm() {
         body: JSON.stringify({ message: textareaRef.current?.value }),
       });
 
+      if (response.status === 429) {
+        const data: { message: string; remainingTime: number } =
+          await response.json();
+
+        const hours = Math.ceil(data.remainingTime / (1000 * 60 * 60));
+        setError(
+          `لقد تجاوزت الحد المسموح به من الأسئلة. يرجى المحاولة بعد ${hours} ساعة`
+        );
+        return;
+      }
+
       if (!response.ok) {
         throw new Error("Failed to submit question");
       }
 
       setSuccess(true);
-      router.refresh();
+      textareaRef.current.value = "";
     } catch {
       setError("فشل في إرسال سؤالك. يرجى المحاولة مرة أخرى.");
     } finally {
