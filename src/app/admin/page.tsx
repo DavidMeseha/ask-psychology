@@ -29,7 +29,12 @@ export default async function AdminPage() {
           لوحة التحكم
         </h1>
         <Link href="/" className="text-2xl font-bold">
-          <Image src={"/sero_logo_s.png"} width={100} height={100} alt="sero" />
+          <Image
+            src={"/sero_logo_s.png"}
+            width={100}
+            height={100}
+            alt="sero | سيروا فى النور"
+          />
         </Link>
       </div>
 

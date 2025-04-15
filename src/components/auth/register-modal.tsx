@@ -85,7 +85,7 @@ export function RegisterModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="sm:max-w-[425px] bg-white overflow-auto h-full">
         <DialogHeader>
           <DialogTitle>إنشاء حساب جديد</DialogTitle>
           <DialogDescription>أدخل بياناتك لإنشاء حساب جديد</DialogDescription>
@@ -102,9 +102,7 @@ export function RegisterModal({
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-muted-foreground">
-                أو
-              </span>
+              <span className="bg-white px-2 text-muted-foreground">أو</span>
             </div>
           </div>
 

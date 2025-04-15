@@ -17,7 +17,7 @@ export function InstructionsModal({
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="sm:max-w-[425px] bg-white overflow-auto h-full">
         <DialogHeader>
           <DialogTitle>كيف يعمل الموقع ؟</DialogTitle>
         </DialogHeader>
