@@ -8,14 +8,21 @@ import { Facebook } from "lucide-react";
 export default function Home() {
   return (
     <div className="w-full max-w-7xl px-4">
-      <header className="flex justify-between py-4">
+      <header className="flex justify-between">
         <Link href="/" className="text-2xl font-bold">
-          <Image src={"/sero_logo_s.png"} width={100} height={100} alt="sero" />
+          <Image
+            src={"/sero_logo_s.png"}
+            width={120}
+            height={120}
+            alt="sero | سيرو في النور"
+          />
         </Link>
-        <AuthButtons />
+        <div className="py-4">
+          <AuthButtons />
+        </div>
       </header>
 
-      <main className="container flex flex-col items-center justify-center py-8">
+      <main className="container flex flex-col items-center justify-center py-10">
         <HeroSection />
 
         <section className="w-full max-w-2xl mx-auto mt-12 py-4 px-2 bg-card rounded-lg">

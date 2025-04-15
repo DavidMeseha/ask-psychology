@@ -22,25 +22,37 @@ export function AuthButtons() {
 
   if (session) {
     return (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="flex items-center gap-2">
-            <User className="h-4 w-4" />
-            <span className="sm:inline-block hidden">
-              {session.user?.name || "حسابي"}
+      <DropdownMenu dir="rtl">
+        <DropdownMenuTrigger className="gap-2 px-3 h-9 hover:bg-accent" asChild>
+          <Button variant="outline">
+            <User className="h-4 w-4 text-primary" />
+            <span className="sm:inline-block hidden font-medium">
+              {session.user?.name?.split(" ")[0] || "حسابي"}
             </span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuSeparator />
+        <DropdownMenuContent
+          align="end"
+          className="w-48 p-1 bg-white/95 backdrop-blur-sm"
+        >
+          <DropdownMenuItem
+            dir="ltr"
+            className="px-3 py-2 text-sm font-medium text-primary cursor-default"
+          >
+            <span className="truncate">{session.user?.email}</span>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator className="my-1 bg-primary/20" />
           {session.user?.role === "admin" && (
-            <DropdownMenuItem className="cursor-pointer" asChild>
+            <DropdownMenuItem
+              className="px-3 py-2 text-sm hover:bg-accent hover:text-primary transition-colors rounded-md cursor-pointer"
+              asChild
+            >
               <Link href="/admin">لوحة التحكم</Link>
             </DropdownMenuItem>
           )}
           <DropdownMenuItem
-            className="cursor-pointer"
             onClick={() => signOut()}
+            className="px-3 py-2 text-sm text-destructive hover:bg-red-50 transition-colors rounded-md cursor-pointer"
           >
             تسجيل الخروج
           </DropdownMenuItem>

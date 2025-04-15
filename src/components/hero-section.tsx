@@ -2,7 +2,7 @@ import { InstructionsButton } from "./InstructionsButton";
 
 export function HeroSection() {
   return (
-    <section className="text-center py-12">
+    <section className="text-center py-4">
       <h1 className="hero text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl bg-gradient-to-r from-[#003092] via-[#00879e] to-[#ffab5b] text-transparent bg-clip-text">
         مساحة آمنة للمشاركة
       </h1>

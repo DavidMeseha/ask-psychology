@@ -33,8 +33,6 @@ export function QuestionForm() {
     if (!textareaRef.current) return;
     if (!session) return setIsLoginModalOpen(true);
 
-    console.log(textareaRef.current?.value);
-
     if (textareaRef.current.value.length < 15)
       return setError("اكتب سؤالك بالتفصيل");
 
@@ -64,7 +62,7 @@ export function QuestionForm() {
 
   return (
     <>
-      <div className="space-y-2">
+      <div className="space-y-2 mb-8">
         <form onSubmit={onSubmit} className="border flex items-end rounded-xl">
           <div className="w-full p-4">
             <textarea
