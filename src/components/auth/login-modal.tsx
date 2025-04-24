@@ -68,7 +68,7 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="sm:max-w-[425px] bg-white max-h-screen overflow-y-auto">
         <DialogHeader>
           <DialogTitle>تسجيل الدخول</DialogTitle>
           <DialogDescription>أدخل بياناتك للوصول إلى حسابك</DialogDescription>
@@ -79,15 +79,6 @@ export function LoginModal({ isOpen, onClose, switchTab }: LoginModalProps) {
             isLoading={isLoading}
             onTrigger={() => setIsLoading(true)}
           />
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-muted-foreground">أو</span>
-            </div>
-          </div>
 
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <div>
