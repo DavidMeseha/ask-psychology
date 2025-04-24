@@ -42,7 +42,7 @@ export default function Home() {
         </Link>
         <Link
           className="inline-block bg-red-700 text-white rounded-full p-1"
-          href="https://www.facebook.com/profile.php?id=61573532942122"
+          href="https://www.youtube.com/@SeroFeELNooor"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -50,7 +50,7 @@ export default function Home() {
         </Link>
         <Link
           className="inline-block bg-pink-600 text-white rounded-full p-1"
-          href="https://www.facebook.com/profile.php?id=61573532942122"
+          href="https://www.instagram.com/sero_fe_elnoor"
           target="_blank"
           rel="noopener noreferrer"
         >
