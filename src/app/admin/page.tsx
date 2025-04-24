@@ -16,8 +16,16 @@ export default async function AdminPage() {
 
   await connectToDatabase();
 
-  const users = await UserModel.find().limit(20).sort({ createdAt: -1 }).lean();
-  const questions = await QuestionModel.find().sort({ createdAt: -1 }).lean();
+  const users = await UserModel.find({
+    _id: { $ne: session.user.id },
+  })
+    .sort({ createdAt: -1 })
+    .lean();
+
+  const questions = await QuestionModel.find()
+    .limit(20)
+    .sort({ createdAt: -1 })
+    .lean();
 
   return (
     <div className="container py-4 px-2">
