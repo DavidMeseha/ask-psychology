@@ -1,4 +1,4 @@
-import MainLayout from "@/components/layouts/MainLayout";
+import MainLayout from "@/components/layout/MainLayout";
 import { Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 

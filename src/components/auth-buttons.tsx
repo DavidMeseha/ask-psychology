@@ -16,9 +16,17 @@ import { User } from "lucide-react";
 import Link from "next/link";
 
 export function AuthButtons() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+
+  if (status === "loading") {
+    return (
+      <div className="h-9 w-[88px] flex justify-center items-center text-primary/20 border border-primary/20 rounded-md">
+        تحميل ...
+      </div>
+    );
+  }
 
   if (session) {
     return (

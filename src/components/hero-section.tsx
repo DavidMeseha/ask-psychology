@@ -1,4 +1,4 @@
-import { InstructionsButton } from "./InstructionsButton";
+import { InstructionsButton } from "./Instructions-button";
 
 export function HeroSection() {
   return (

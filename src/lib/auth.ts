@@ -84,11 +84,9 @@ export const authOptions: NextAuthOptions = {
             emailVerified: true,
           });
 
-          // Update the user object with the new user's ID
           user.id = newUser._id.toString();
           user.role = "user";
         } else {
-          // Update the user object with the existing user's ID
           user.role = existingUser.role;
           user.id = existingUser._id.toString();
         }
