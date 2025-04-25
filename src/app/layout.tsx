@@ -8,7 +8,7 @@ const notoKufiArabic = Noto_Kufi_Arabic({
 });
 
 export const metadata = {
-  title: "أسأل في علم النفس",
+  title: "Sero | سيرو في النور",
   description: "مكان للمشاركه او الاستفسار في موضيع تخص علم النفس",
 };
 
