@@ -105,14 +105,14 @@ export function QuestionForm() {
           </Button>
         </form>
 
-        <div className="flex items-center gap-6">
-          <h4 className="font-bold me-4">كيف تريد الرد ؟</h4>
+        <div className="flex items-center gap-4 flex-wrap">
+          <h4 className="font-bold text-nowrap">كيف تريد الرد ؟</h4>
 
           <RadioGroup
             defaultValue="no-reply"
             value={replyType}
             onValueChange={(value) => setReplyType(value as ReplyType)}
-            className="flex items-center gap-6"
+            className="flex items-center flex-wrap gap-6 sm:justify-start justify-end"
           >
             {replyTypes.map((type) => (
               <Label
