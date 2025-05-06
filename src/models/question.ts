@@ -1,3 +1,4 @@
+import { ReplyType } from "@/types";
 import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface IQuestion extends Document {
@@ -7,6 +8,7 @@ export interface IQuestion extends Document {
   subject: string;
   message: string;
   createdAt: Date;
+  replyType: ReplyType;
   verificationToken?: string;
 }
 
@@ -31,6 +33,11 @@ const QuestionSchema = new Schema<IQuestion>({
   message: {
     type: String,
     required: true,
+  },
+  replyType: {
+    type: String,
+    enum: ["no-reply", "private", "public"],
+    default: "no-reply",
   },
   createdAt: {
     type: Date,

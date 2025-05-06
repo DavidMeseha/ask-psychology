@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const { message } = await request.json();
+    const { message, replyType } = await request.json();
 
     if (!message) {
       return NextResponse.json(
@@ -55,6 +55,8 @@ export async function POST(request: Request) {
       );
     }
 
+    console.log("Reply Type:", replyType);
+
     // Create question in database
     await QuestionModel.create({
       userId: session.user.id,
@@ -62,6 +64,7 @@ export async function POST(request: Request) {
       userName: session.user.name,
       subject: `Question`,
       message,
+      replyType,
       createdAt: new Date(),
     });
 

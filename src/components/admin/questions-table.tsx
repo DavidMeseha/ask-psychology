@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/dialog";
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
+import { ReplyType } from "@/types";
+import { replayTypesMap } from "@/constants";
 
 interface Question {
   _id: string;
@@ -28,6 +30,7 @@ interface Question {
   subject: string;
   message: string;
   status: "pending" | "answered";
+  replyType: ReplyType;
   createdAt: string;
 }
 
@@ -54,7 +57,7 @@ export function QuestionsList({ questions }: QuestionsListProps) {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>الموضوع</TableHead>
+              <TableHead>الرد</TableHead>
               <TableHead>من</TableHead>
               <TableHead>التاريخ</TableHead>
               <TableHead>الإجراءات</TableHead>
@@ -70,7 +73,11 @@ export function QuestionsList({ questions }: QuestionsListProps) {
             ) : (
               questionsList.map((question) => (
                 <TableRow key={question._id}>
-                  <TableCell>{question.subject}</TableCell>
+                  <TableCell>
+                    {question.replyType
+                      ? replayTypesMap[question.replyType]
+                      : question.subject}
+                  </TableCell>
                   <TableCell>
                     {question.userName} ({question.userEmail})
                   </TableCell>

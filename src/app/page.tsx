@@ -8,7 +8,6 @@ export default function Home() {
         <HeroSection />
 
         <section className="w-full max-w-2xl mx-auto mt-12 py-4 px-2 bg-card rounded-lg">
-          <h2 className="text-2xl font-bold mb-4 ms-4">اطرح سؤالاً</h2>
           <QuestionForm />
         </section>
       </main>
