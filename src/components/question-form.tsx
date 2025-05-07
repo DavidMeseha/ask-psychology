@@ -17,10 +17,11 @@ export function QuestionForm() {
   const { data: session } = useSession();
   const { error, isPending, mutate, success } = useSubmitQuestion();
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!session) return setIsLoginModalOpen(true);
-    mutate({ message, replyType });
+    await mutate({ message, replyType });
+    setMessage("");
   };
 
   return (
@@ -32,6 +33,7 @@ export function QuestionForm() {
           <div className="border flex items-end rounded-xl mb-2">
             <div className="w-full h-full">
               <DynamicHeightTextArea
+                disabled={isPending}
                 onChange={(e) => setMessage(e.target.value)}
                 id="message"
                 className="block w-full px-2 py-4 resize-none overflow-hidden focus:border-none focus:outline-0"
