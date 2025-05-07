@@ -4,10 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { LoginModal } from "@/components/auth/login-modal";
-import { Label } from "./ui/label";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { ReplyType } from "@/types";
-import { replyTypes } from "@/constants";
+import ReplyTypeRadioGroup from "./reply-type-radio-group";
 
 export function QuestionForm() {
   const { data: session } = useSession();
@@ -105,31 +103,10 @@ export function QuestionForm() {
           </Button>
         </form>
 
-        <div className="flex items-center gap-4 flex-wrap">
-          <h4 className="font-bold text-nowrap">كيف تريد الرد ؟</h4>
-
-          <RadioGroup
-            defaultValue="no-reply"
-            value={replyType}
-            onValueChange={(value) => setReplyType(value as ReplyType)}
-            className="flex items-center flex-wrap gap-6 sm:justify-start justify-end"
-          >
-            {replyTypes.map((type) => (
-              <Label
-                htmlFor={type.name}
-                className="flex items-center gap-1 cursor-pointer"
-                key={type.name}
-              >
-                {type.label}
-                <RadioGroupItem
-                  value={type.name}
-                  id={type.name}
-                  className="text-secondary"
-                />
-              </Label>
-            ))}
-          </RadioGroup>
-        </div>
+        <ReplyTypeRadioGroup
+          onChange={(value) => setReplyType(value)}
+          value={replyType}
+        />
 
         {error ? (
           <div className="text-xs text-red-500 text-center">{error}</div>

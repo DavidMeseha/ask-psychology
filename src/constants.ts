@@ -1,7 +1,19 @@
 export const replyTypes = [
-  { name: "no-reply", label: "لا اريد رد" },
-  { name: "private", label: "رد خاص" },
-  { name: "public", label: "رد عام مجهول" },
+  {
+    name: "no-reply",
+    label: "بدون رد",
+  },
+  {
+    name: "private",
+    label: "رد خاص",
+    description: "سيرد ابونا ارميا  علي سؤالك في بريدك الالكتروني المسجل",
+  },
+  {
+    name: "public",
+    label: "رد عام",
+    description:
+      "سيتم نشر كلامك على علي الفيسبوك بشكل مجهول دون اظهار هويتك, يمكنك المتابعة و رؤية اراء الناس في كلامك ايضا.",
+  },
 ];
 
 export const replayTypesMap = {
