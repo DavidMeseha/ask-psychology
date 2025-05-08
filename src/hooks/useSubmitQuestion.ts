@@ -4,27 +4,45 @@ import { useState } from "react";
 
 type SubmitQuestionFunctionParams = {
   message: string;
-  replyType: ReplyType;
+  replyType: ReplyType | undefined;
+  contactInfo: string;
 };
 
-export default function useSubmitQuestion() {
+export default function useSubmitQuestion({
+  onSuccess,
+}: {
+  onSuccess?: () => void;
+}) {
   const [error, setError] = useState<false | string>(false);
   const [success, setSuccess] = useState(false);
   const [isPending, setIsPending] = useState(false);
 
-  async function mutate({ message, replyType }: SubmitQuestionFunctionParams) {
+  async function mutate({
+    message,
+    replyType,
+    contactInfo,
+  }: SubmitQuestionFunctionParams) {
     if (!message) return;
-    if (message.length < 15)
-      return setError("اكتب سؤالك بالتفصيل");
 
     setError(false);
     setSuccess(false);
     setIsPending(true);
 
+    if (!replyType)
+      return setError(
+        "يجب اختيار طريقة للرد او التواصل لمعرفة كيفية التعامل مع استفسارك"
+      );
+
+    if (replyType === "private" && contactInfo.length < 8)
+      return setError("أضف وسيلة تواصل حتي يمكننا رد علي استفسارك يشكل خاص");
+
+    if (message.length < 10) return setError("اكتب سؤالك بالتفصيل");
+
     try {
       const response = await submitQuestion({
         message,
         replyType,
+        contactInfo,
       });
 
       if (response.status === 429) {
@@ -43,6 +61,7 @@ export default function useSubmitQuestion() {
       }
 
       setSuccess(true);
+      onSuccess?.();
     } catch {
       setError("فشل في إرسال سؤالك. يرجى المحاولة مرة أخرى.");
     } finally {

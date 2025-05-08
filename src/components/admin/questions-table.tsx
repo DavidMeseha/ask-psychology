@@ -21,6 +21,8 @@ import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
 import { ReplyType } from "@/types";
 import { replayTypesMap } from "@/constants";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
+import { Check, Copy } from "lucide-react";
 
 interface Question {
   _id: string;
@@ -31,6 +33,7 @@ interface Question {
   message: string;
   status: "pending" | "answered";
   replyType: ReplyType;
+  contactInfo: string | null;
   createdAt: string;
 }
 
@@ -59,6 +62,7 @@ export function QuestionsList({ questions }: QuestionsListProps) {
             <TableRow>
               <TableHead>الرد</TableHead>
               <TableHead>من</TableHead>
+              <TableHead>وسيلة التواصل</TableHead>
               <TableHead>التاريخ</TableHead>
               <TableHead>الإجراءات</TableHead>
             </TableRow>
@@ -78,8 +82,12 @@ export function QuestionsList({ questions }: QuestionsListProps) {
                       ? replayTypesMap[question.replyType]
                       : question.subject}
                   </TableCell>
+                  <TableCell>{question.userName}</TableCell>
                   <TableCell>
-                    {question.userName} ({question.userEmail})
+                    <ContactInfo
+                      contactInfo={question.contactInfo}
+                      userEmail={question.userEmail}
+                    />
                   </TableCell>
                   <TableCell>{formatDate(question.createdAt)}</TableCell>
                   <TableCell>
@@ -114,5 +122,33 @@ export function QuestionsList({ questions }: QuestionsListProps) {
         </DialogContent>
       </Dialog>
     </>
+  );
+}
+
+function ContactInfo({
+  contactInfo,
+  userEmail,
+}: {
+  userEmail: string;
+  contactInfo: string | null;
+}) {
+  const { copyToClipboard, success } = useCopyToClipboard();
+
+  return (
+    <div className="flex gap-1">
+      {contactInfo || userEmail}{" "}
+      {success ? (
+        <span className="p-1">
+          <Check className="h-4 w-4 text-green-500" />
+        </span>
+      ) : (
+        <button
+          onClick={() => copyToClipboard(contactInfo || userEmail)}
+          className="p-1"
+        >
+          <Copy className="h-4 w-4 text-primary" />
+        </button>
+      )}
+    </div>
   );
 }

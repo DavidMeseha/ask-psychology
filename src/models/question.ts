@@ -9,6 +9,7 @@ export interface IQuestion extends Document {
   message: string;
   createdAt: Date;
   replyType: ReplyType;
+  contactInfo: string;
   verificationToken?: string;
 }
 
@@ -38,6 +39,10 @@ const QuestionSchema = new Schema<IQuestion>({
     type: String,
     enum: ["no-reply", "private", "public"],
     default: "no-reply",
+  },
+  contactInfo: {
+    type: String,
+    default: null,
   },
   createdAt: {
     type: Date,

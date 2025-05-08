@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { connectToDatabase } from "@/lib/mongodb";
 import { QuestionModel } from "@/models/question";
-// import { sendQuestionEmail } from "@/lib/email";
 import { authOptions } from "@/lib/auth";
 
 // Rate limit settings
@@ -17,9 +16,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
-    const { message, replyType } = await request.json();
+    const { message, replyType, contactInfo } = await request.json();
 
-    if (!message) {
+    if (!message || !replyType || (replyType === "private" && !contactInfo)) {
       return NextResponse.json(
         { message: "Missing required fields" },
         { status: 400 }
@@ -27,6 +26,7 @@ export async function POST(request: Request) {
     }
 
     await connectToDatabase();
+
     // Check rate limit
     const timeWindow = new Date(Date.now() - RATE_LIMIT_WINDOW);
     const recentQuestions = await QuestionModel.countDocuments({
@@ -55,8 +55,6 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log("Reply Type:", replyType);
-
     // Create question in database
     await QuestionModel.create({
       userId: session.user.id,
@@ -65,21 +63,12 @@ export async function POST(request: Request) {
       subject: `Question`,
       message,
       replyType,
+      contactInfo,
       createdAt: new Date(),
     });
 
-    // // Send email to admin
-    // await sendQuestionEmail({
-    //   from: process.env.ADMIN_EMAIL!,
-    //   to: process.env.PERSONAL_EMAIL!,
-    //   subject: `Question`,
-    //   userName: session.user.name as string,
-    //   userEmail: session.user.email as string,
-    //   message,
-    // });
-
     return NextResponse.json(
-      { message: "Question submitted successfully" },
+      { message: "Question submited successfully" },
       { status: 201 }
     );
   } catch (error) {
