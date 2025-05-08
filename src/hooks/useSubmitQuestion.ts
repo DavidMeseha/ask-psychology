@@ -26,7 +26,6 @@ export default function useSubmitQuestion({
 
     setError(false);
     setSuccess(false);
-    setIsPending(true);
 
     if (!replyType)
       return setError(
@@ -37,6 +36,8 @@ export default function useSubmitQuestion({
       return setError("أضف وسيلة تواصل حتي يمكننا رد علي استفسارك يشكل خاص");
 
     if (message.length < 10) return setError("اكتب سؤالك بالتفصيل");
+
+    setIsPending(true);
 
     try {
       const response = await submitQuestion({
