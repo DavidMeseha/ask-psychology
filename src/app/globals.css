@@ -18,6 +18,12 @@ body {
   .hero {
     line-height: 69px;
   }
+
+  .light-image-transformation {
+    transform: perspective(1000px) rotateX(20deg);
+    transform-origin: top center;
+    top: -90px;
+  }
 }
 
 :root {
