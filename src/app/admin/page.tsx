@@ -7,7 +7,6 @@ import { connectToDatabase } from "@/lib/mongodb";
 import { UserModel } from "@/models/user";
 import { QuestionModel } from "@/models/question";
 import { authOptions } from "@/lib/auth";
-import { Card } from "@/components/ui/card";
 
 export default async function AdminPage() {
   const session = await getServerSession(authOptions);
@@ -49,15 +48,13 @@ export default async function AdminPage() {
           </h1>
         </div>
 
-        <Card className="bg-white border-none">
-          <TabsContent value="questions">
-            <QuestionsList questions={JSON.parse(JSON.stringify(questions))} />
-          </TabsContent>
+        <TabsContent value="questions">
+          <QuestionsList questions={JSON.parse(JSON.stringify(questions))} />
+        </TabsContent>
 
-          <TabsContent value="users">
-            <UsersList users={JSON.parse(JSON.stringify(users))} />
-          </TabsContent>
-        </Card>
+        <TabsContent value="users">
+          <UsersList users={JSON.parse(JSON.stringify(users))} />
+        </TabsContent>
       </Tabs>
     </main>
   );

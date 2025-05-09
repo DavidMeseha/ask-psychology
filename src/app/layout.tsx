@@ -12,13 +12,6 @@ export async function generateMetadata() {
   return {
     title: "Sero | سيرو في النور",
     description: "مكان للمشاركه او الاستفسار في موضيع تخص علم النفس",
-    metadataBase: new URL("https://sero-fe-elnoor-space.vercel.app"),
-    icons: {
-      icon: "/favicon.ico",
-    },
-    other: {
-      "preload-images": "/white-glow-light-effect-png1.webp",
-    },
   };
 }
 
