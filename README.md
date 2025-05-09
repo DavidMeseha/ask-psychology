@@ -32,8 +32,6 @@ A Next.js web application with user authentication, admin functionality.
   GOOGLE_CLIENT_SECRET=
   FACEBOOK_CLIENT_ID=
   FACEBOOK_CLIENT_SECRET=
-  ADMIN_EMAIL=
-  PERSONAL_EMAIL=
   ```
 
 ## Getting Started
@@ -55,10 +53,9 @@ npm run dev
 ## Project Structure
 
 - `/src/app` - App router routes and API endpoints
-- `/src/components` - Reusable UI components
+- `/src/components` - App components
 - `/src/lib` - Utility functions and configurations
 - `/src/models` - MongoDB models
-- `/public` - Static assets
 
 ## Available Scripts
 
@@ -66,7 +63,3 @@ npm run dev
 - `npm run build` - Build for production
 - `npm start` - Start production server
 - `npm run lint` - Run ESLint
-
-## License
-
-MIT
