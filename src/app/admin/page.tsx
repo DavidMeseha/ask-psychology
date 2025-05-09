@@ -31,12 +31,15 @@ export default async function AdminPage() {
         <div className="flex items-center justify-between mb-6">
           <TabsList>
             <TabsTrigger
-              className="bg-primary text-white mx-1"
+              className="data-[state=active]:bg-primary data-[state=active]:text-white bg-primary/7 mx-1"
               value="questions"
             >
               الأسئلة
             </TabsTrigger>
-            <TabsTrigger className="bg-primary text-white mx-1" value="users">
+            <TabsTrigger
+              className="data-[state=active]:bg-primary data-[state=active]:text-white bg-primary/7 mx-1"
+              value="users"
+            >
               المستخدمين
             </TabsTrigger>
           </TabsList>

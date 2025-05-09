@@ -33,14 +33,16 @@ export default function Header() {
           <Instagram className="h-5 w-5" />
         </Link>
       </div>
-      <Link href="/" className="text-2xl font-bold w-1/3 flex justify-center">
-        <Image
-          src={"/sero_logo_s.png"}
-          width={120}
-          height={120}
-          alt="sero | سيرو في النور"
-        />
-      </Link>
+      <div className="text-2xl font-bold w-1/3 flex justify-center">
+        <Link href="/">
+          <Image
+            src={"/sero_logo_s.png"}
+            width={120}
+            height={120}
+            alt="sero | سيرو في النور"
+          />
+        </Link>
+      </div>
       <div className="py-4 w-1/3 flex justify-end">
         <AuthButtons />
       </div>

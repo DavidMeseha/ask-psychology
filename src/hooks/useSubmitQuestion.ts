@@ -51,10 +51,9 @@ export default function useSubmitQuestion({
           await response.json();
 
         const hours = Math.ceil(data.remainingTime / (1000 * 60 * 60));
-        setError(
+        return setError(
           `لقد تجاوزت الحد المسموح به من الأسئلة. يرجى المحاولة بعد ${hours} ساعة`
         );
-        return;
       }
 
       if (!response.ok) {
