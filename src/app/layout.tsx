@@ -38,6 +38,8 @@ export default function RootLayout({
               alt=""
               fill
               priority
+              loading="eager"
+              fetchPriority="high"
               className="object-contain object-top opacity-20 light-image-transformation"
               style={{ top: -90 }}
             />
