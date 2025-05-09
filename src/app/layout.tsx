@@ -1,7 +1,7 @@
 import MainLayout from "@/components/layout/MainLayout";
 import { Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
+// import Image from "next/image";
 
 const notoKufiArabic = Noto_Kufi_Arabic({
   subsets: ["arabic"],
