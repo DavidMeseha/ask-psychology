@@ -14,16 +14,13 @@ export default async function AdminPage() {
 
   await connectToDatabase();
 
-  const users = await UserModel.find({
-    _id: { $ne: session.user.id },
-  })
-    .sort({ createdAt: -1 })
-    .lean();
+  const [users, questions] = await Promise.all([
+    UserModel.find({ _id: { $ne: session.user.id } })
+      .sort({ createdAt: -1 })
+      .lean(),
 
-  const questions = await QuestionModel.find()
-    .limit(20)
-    .sort({ createdAt: -1 })
-    .lean();
+    QuestionModel.find().limit(20).sort({ createdAt: -1 }).lean(),
+  ]);
 
   return (
     <main className="container mx-auto py-4 px-2">

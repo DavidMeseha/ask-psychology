@@ -10,7 +10,11 @@ export function HeroSection() {
   const ref = useRef<Date>(new Date());
   const month = ref.current.getMonth();
   const day = ref.current.getDate();
-  const verse = verses[month][day];
+  console.log(month, day);
+  const verse = verses[month][day - 1];
+
+  console.log(verse);
+  console.log(verse);
 
   return (
     <div className="max-w-4xl mx-auto px-4">
